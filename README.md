@@ -7,26 +7,38 @@ This repository contains the complete code, results and models from the X-GAN pr
 ## 📁 Repository Structure
 
 ```
-xgan_denoising/
-│
-├── models/
-│   ├── generator.py       # Generator network
-│   ├── discriminator.py   # Discriminator network
-│   └── xgan.py           # Main GAN system
-│
-├── training/
-│   ├── train_utils.py     # Losses, metrics
-│   ├── callbacks.py       # Custom callbacks
-│   └── trainer.py        # Training loop
-│
-├── data/
-│   ├── dataloader.py      # Data pipeline
-│   └── preprocessing.py   # Noise addition, etc.
+medical_image_denoising/
 │
 ├── configs/
-│   └── default.yaml       # Hyperparameters
+│   └── default.yaml       # Hyperparameters and paths
 │
-└── utils/
-    ├── visualize.py       # Result plotting
-    └── metrics.py        # EPI, PSNR, SSIM
+├── data/
+│   ├── __init__.py
+│   ├── dataloader.py      # Data loading and preprocessing
+│   └── augmentations.py   # Noise addition and transforms
+│
+├── models/
+│   ├── __init__.py
+│   ├── generator.py       # Generator architecture
+│   ├── discriminator.py   # Discriminator architecture
+│   ├── xgan.py           # Main GAN system
+│   └── layers.py         # Custom layers
+│
+├── training/
+│   ├── __init__.py
+│   ├── trainer.py        # Training loop
+│   ├── losses.py         # Loss functions
+│   └── callbacks.py      # Custom callbacks
+│
+├── utils/
+│   ├── __init__.py
+│   ├── metrics.py        # EPI, PSNR, SSIM calculations
+│   ├── visualize.py      # Plotting functions
+│   └── logger.py         # Logging setup
+│
+├── scripts/
+│   ├── train.py          # Training script
+│   └── evaluate.py       # Evaluation script
+│
+└── main.py               # Entry point
 ```
