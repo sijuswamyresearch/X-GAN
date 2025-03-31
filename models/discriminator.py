@@ -1,28 +1,41 @@
 import tensorflow as tf
 from tensorflow.keras import layers, Model
-from models.layers import SpectralNormalization
+from .layers import EdgeAttention
 
-class Discriminator(Model):
-    def __init__(self, img_size=256):
+class Generator(Model):
+    def __init__(self, config):
         super().__init__()
-        self.img_size = img_size
-        self.build_model()
+        self.config = config
+        self._build_model()
+
+    def _build_model(self):
+        inputs = layers.Input((self.config['model']['img_size'], self.config['model']['img_size'], self.config['model']['channels']))
         
-    def build_model(self):
-        inputs = layers.Input((self.img_size, self.img_size, 1))
-        
-        x = SpectralNormalization(layers.Conv2D(64, 4, strides=2, padding='same'))(inputs)
+        # Encoder
+        x = layers.Conv2D(64, 4, strides=2, padding='same')(inputs)
         x = layers.LeakyReLU(0.2)(x)
         
-        x = SpectralNormalization(layers.Conv2D(128, 4, strides=2, padding='same'))(x)
+        x = layers.Conv2D(128, 4, strides=2, padding='same')(x)
+        x = layers.BatchNormalization()(x)
         x = layers.LeakyReLU(0.2)(x)
         
-        x = SpectralNormalization(layers.Conv2D(256, 4, strides=2, padding='same'))(x)
-        x = layers.LeakyReLU(0.2)(x)
+        # Bridge
+        x = layers.Conv2D(256, 4, strides=2, padding='same')(x)
+        x = layers.BatchNormalization()(x)
+        x = EdgeAttention()(x)
         
-        outputs = layers.Conv2D(1, 4, padding='same')(x)
+        # Decoder
+        x = layers.Conv2DTranspose(128, 4, strides=2, padding='same')(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.ReLU()(x)
         
-        self.model = Model(inputs, outputs, name='Discriminator')
+        x = layers.Conv2DTranspose(64, 4, strides=2, padding='same')(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.ReLU()(x)
+        
+        outputs = layers.Conv2D(1, 4, padding='same', activation='sigmoid')(x)
+        
+        self.model = Model(inputs, outputs, name='Generator')
     
     def call(self, inputs):
         return self.model(inputs)
