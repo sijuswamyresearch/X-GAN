@@ -1,28 +1,26 @@
-import tensorflow as tf
 from tensorflow.keras import layers, Model
-from .layers import SpectralNormalization
+from .layers import EdgeAttention
 
-class Discriminator(Model):
-    def __init__(self, config):
-        super().__init__()
-        self.config = config
-        self._build_model()
-
-    def _build_model(self):
-        inputs = layers.Input((self.config['model']['img_size'], self.config['model']['img_size'], self.config['model']['channels']))
-        
-        x = SpectralNormalization(layers.Conv2D(64, 4, strides=2, padding='same'))(inputs)
-        x = layers.LeakyReLU(0.2)(x)
-        
-        x = SpectralNormalization(layers.Conv2D(128, 4, strides=2, padding='same'))(x)
-        x = layers.LeakyReLU(0.2)(x)
-        
-        x = SpectralNormalization(layers.Conv2D(256, 4, strides=2, padding='same'))(x)
-        x = layers.LeakyReLU(0.2)(x)
-        
-        outputs = layers.Conv2D(1, 4, padding='same')(x)
-        
-        self.model = Model(inputs, outputs, name='Discriminator')
-    
-    def call(self, inputs):
-        return self.model(inputs)
+def build_generator(img_size: int = 256) -> Model:
+    inputs = layers.Input((img_size, img_size, 1))
+    d1 = layers.Conv2D(64, 4, strides=2, padding='same', kernel_initializer='he_uniform')(inputs)
+    d1 = layers.LeakyReLU(0.2)(d1)
+    d2 = layers.Conv2D(128, 4, strides=2, padding='same', kernel_initializer='he_uniform')(d1)
+    d2 = layers.BatchNormalization()(d2)
+    d2 = layers.LeakyReLU(0.2)(d2)
+    bridge = layers.Conv2D(256, 4, strides=2, padding='same', kernel_initializer='he_uniform')(d2)
+    bridge = layers.BatchNormalization()(bridge)
+    bridge = EdgeAttention()(bridge)
+    u1 = layers.Conv2DTranspose(128, 4, strides=2, padding='same', kernel_initializer='he_uniform')(bridge)
+    u1 = layers.BatchNormalization()(u1)
+    u1 = layers.Concatenate()([u1, d2])
+    u1 = layers.ReLU()(u1)
+    u2 = layers.Conv2DTranspose(64, 4, strides=2, padding='same', kernel_initializer='he_uniform')(u1)
+    u2 = layers.BatchNormalization()(u2)
+    u2 = layers.Concatenate()([u2, d1])
+    u2 = layers.ReLU()(u2)
+    u3 = layers.Conv2DTranspose(32, 4, strides=2, padding='same', kernel_initializer='he_uniform')(u2)
+    u3 = layers.BatchNormalization()(u3)
+    u3 = layers.ReLU()(u3)
+    outputs = layers.Conv2D(1, 4, padding='same', activation='sigmoid', kernel_initializer='glorot_uniform')(u3)
+    return Model(inputs, outputs, name='Generator')
