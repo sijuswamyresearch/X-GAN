@@ -1,42 +1,33 @@
 import tensorflow as tf
-from datetime import datetime
+import numpy as np
+import datetime
+from typing import Dict, Tuple
 from utils.logger import setup_logger
 from utils.metrics import calculate_epi
 from utils.visualize import plot_loss_curves
 
-class XGANTrainer:
-    def __init__(self, model, train_ds, val_ds, config):
-        self.model = model
-        self.train_ds = train_ds
-        self.val_ds = val_ds
-        self.config = config
-        self.logger = setup_logger()
-        
-    def train_step(self, batch):
-        noisy, clean = batch
-        with tf.GradientTape(persistent=True) as tape:
-            # Forward pass and loss calculations
-            losses = self.model.compute_losses(clean, noisy)
-        
-        # Apply gradients
-        self.model.apply_gradients(losses, tape)
-        del tape
-        return losses
+def train(denoiser, train_dataset, val_dataset, test_data, epochs=150):
+    logger = setup_logger()
+    history = {'train': {'d_loss': [], 'g_loss': []}, 'val': {'d_loss': [], 'g_loss': []}}
     
-    def train(self, epochs):
-        history = {'train': [], 'val': []}
+    for epoch in range(epochs):
+        logger.info(f"Epoch {epoch+1}/{epochs}")
         
-        for epoch in range(epochs):
-            train_losses = []
-            for batch in self.train_ds:
-                losses = self.train_step(batch)
-                train_losses.append(losses)
-            
-            # Validation and logging
-            val_losses = self.validate()
-            self.log_epoch(epoch, train_losses, val_losses)
-            history['train'].append(train_losses)
-            history['val'].append(val_losses)
-            
-        plot_loss_curves(history)
-        return history
+        # Training loop
+        for batch, (noisy, clean) in enumerate(train_dataset):
+            losses = denoiser.train_step((noisy, clean))
+            if batch % 50 == 0:
+                logger.info(f"Batch {batch}: D Loss: {losses['d_loss']:.4f}, G Loss: {losses['g_loss']:.4f}")
+        
+        # Validation loop
+        for noisy, clean in val_dataset:
+            val_losses = denoiser.validation_step((noisy, clean))
+        
+        # Update history
+        for k in losses:
+            history['train'][k].append(losses[k].numpy())
+            history['val'][k].append(val_losses[k].numpy())
+    
+    # Plot and save results
+    plot_loss_curves(history, epochs)
+    return history
