@@ -1,38 +1,23 @@
+# Model parameters
+img_size: 256
+batch_size: 16
+epochs: 150
+peak_photons: 1000
 
-### 2. Configuration Files
+# Data parameters
+data_paths: ["/dist_home/siju/test/ChestX-ray_dataset/"]
+test_size: 0.1
+val_size: 0.1
 
-**`configs/default.yaml`**
-```yaml
-# Model Architecture
-model:
-  img_size: 256
-  channels: 1
-  gen_filters: 64
-  disc_filters: 64
-  edge_weight: 5.0
+# Training parameters
+g_lr: 5e-6
+d_lr: 2e-6
+beta_1: 0.5
+lambda_gp: 10.0
+edge_weight: 5.0
 
-# Training Parameters
-training:
-  epochs: 150
-  batch_size: 16
-  learning_rate:
-    generator: 5e-6
-    discriminator: 2e-6
-  beta_1: 0.5
-  lambda_gp: 10.0
-
-# Data Configuration
-data:
-  paths: 
-    - "/path/to/your/dataset"
-  test_size: 0.1
-  val_size: 0.1
-  peak_photons: 1000
-
-# System Settings
-system:
-  log_dir: "logs"
-  model_dir: "models"
-  results_dir: "results"
-  checkpoint_dir: "training_checkpoints"
-  seed: 42
+# Paths
+log_dir: "logs"
+model_dir: "models"
+results_dir: "results"
+checkpoint_dir: "training_checkpoints"
