@@ -1,6 +1,5 @@
-from .generator import Generator
-from .discriminator import Discriminator
-from .xgan import XGAN
-from .layers import SobelEdgeLayer, EdgeAttention, SpectralNormalization
+from .xgan import MedicalDenoiser
+from .generator import build_generator
+from .discriminator import build_discriminator
 
-__all__ = ['Generator', 'Discriminator', 'XGAN', 'SobelEdgeLayer', 'EdgeAttention', 'SpectralNormalization']
+__all__ = ['MedicalDenoiser', 'build_generator', 'build_discriminator']
