@@ -3,6 +3,13 @@
 
 ## 1. Core Architecture Overview
 
+
+![Generator](X-GAN-Generator_new%20(1).png){#fig-generator}
+
+![Descriminator](X-GAN-discriminator-network.png){#fig-descriminator}
+
+
+
 The system implements a Generative Adversarial Network (GAN) with:
 
 - A U-Net style generator with skip connections for detailed image reconstruction  
