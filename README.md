@@ -1,5 +1,5 @@
 ![X-GAN](X-GAN-title.png)
-## The Project repository for X-GAN
+## Project repository for X-GAN
 
 This repository contains the complete code, results and models from the X-GAN project. This project is done by Mr. Siju K. S, Research Scholar, Amrita School of Artificial Intelligence and is supervised by [Dr. Vipin Venugopal](https://sites.google.com/view/vipin-venugopal?pli=1) , Assistant Professor (Sel.Gr), Amrita School of Artificial Intelligence, Amrita Vishwa Vidyapeetham, Coimbatore.
 
@@ -41,3 +41,5 @@ medical_image_denoising/
 │
 └── main.py               # Entry point
 ```
+
+## Project Documentation
