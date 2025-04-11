@@ -1,0 +1,17 @@
+# Core libraries
+tensorflow>=2.5.0
+numpy>=1.19.5
+scikit-image>=0.18.1
+matplotlib>=3.3.4
+opencv-python>=4.5.1
+
+# Utility libraries
+tqdm>=4.62.3
+pandas>=1.3.0
+scipy>=1.7.0
+
+# Logging and debugging
+tensorboard>=2.5.0
+
+# Testing (optional)
+pytest>=6.2.4
