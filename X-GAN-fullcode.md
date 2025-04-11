@@ -1,6 +1,6 @@
 ## This version of `Python` code is for Kaggle users. They can create a Kaggle notebook and paste this code and set the path properly after uploading the datasets.
 
-```{python}
+```python
 import os
 import numpy as np
 import tensorflow as tf
@@ -23,9 +23,7 @@ PEAK_PHOTONS = 1000
 TEST_SIZE = 0.1
 VAL_SIZE = 0.1
 TRAIN_SIZE = 1.0 - TEST_SIZE - VAL_SIZE
-DATA_PATHS = [  
-    "/dist_home/siju/test/ChestX-ray_dataset/"  # Base path
-]
+DATA_PATHS = [<your data path> ]
 LOG_DIR = "logs"
 MODEL_DIR = "models"
 RESULTS_DIR = "results"
