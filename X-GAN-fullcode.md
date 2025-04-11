@@ -281,8 +281,8 @@ class MedicalDenoiser(tf.keras.Model):
         self.generator = self.build_generator()
         self.discriminator = self.build_discriminator()
         self.edge_weight = 5.0
-        self.g_optimizer = tf.keras.optimizers.Adam(5e-6, beta_1=0.5)
-        self.d_optimizer = tf.keras.optimizers.Adam(2e-6, beta_1=0.5)
+        self.g_optimizer = tf.keras.optimizers.Adam(5e-6, beta_1=0.9)
+        self.d_optimizer = tf.keras.optimizers.Adam(2e-6, beta_1=0.9)
         self.checkpoint_dir = CHECKPOINT_DIR
         self.checkpoint_prefix = os.path.join(self.checkpoint_dir, "ckpt")
         self.checkpoint = tf.train.Checkpoint(
