@@ -28,23 +28,7 @@ The project is designed to handle realistic noise models in medical imaging data
 - TensorFlow 2.x
 - Dependencies: `numpy`, `scikit-image`, `matplotlib`, `opencv-python`, `tqdm`
 
-### Steps to Install
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/sijuswamyresearch/X-GAN.git
-   cd medical_image_denoising
-   ```
-2. Create a virtual environment (optional but recommended):
-   ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
+----
 
 ## 📁 Repository Structure
 
@@ -85,3 +69,79 @@ medical_image_denoising/
 └── main.py               # Entry point
 ```
 
+----
+
+### Steps to Install
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sijuswamyresearch/X-GAN.git
+   cd medical_image_denoising
+   ```
+2. Create a virtual environment (optional but recommended):
+   ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Download and preprocess your dataset:
+
+   - Place your medical images in the `data/ directory`.
+   - Update paths in `configs/default.yaml`.
+5. Verify installation:
+  Run the following command to ensure everything is set up correctly:
+   ```bash
+   python main.py --help
+   ```
+6. Usage Instructions
+
+- Training the Model
+  Update configuration file (`configs/default.yaml`) with your dataset paths and hyperparameters.
+  Run the training script:
+  ```bash
+   python scripts/train.py --config configs/default.yaml
+  ```
+7. Monitor training progress using TensorBoard:
+
+   ```bash
+   tensorboard --logdir logs/
+   ```
+8. Evaluating the Model
+
+   1. Evaluate the trained model on test data:
+      ```bash
+      python scripts/evaluate.py --config configs/default.yaml --weights path/to/best_model.h5
+      ```
+   2. Visualize results:
+
+      - Metrics (PSNR, SSIM, EPI) will be logged in the console.
+      - Plots of original, noisy, and denoised images will be saved in the results/ directory.
+
+9. Running k-Fold Cross-Validation
+ To perform k-fold cross-validation:
+
+  ```bash
+  python scripts/train.py --config configs/default.yaml --k_folds 5
+  ```
+
+
+
+----
+
+### Citation
+
+If you use this project in your research, please cite it as follows:
+
+```bash
+@misc{X-GAN2025,
+  author = {K S Siju, V Vipin, V Sowmya},
+  title  = {X-GAN: A Domain Specific Deep Learning Method for Chest X-ray denoising},
+  year   = {2025},
+  publisher = {GitHub},
+  journal = {GitHub Repository},
+  url    = {https://github.com/sijuswamyresearch/X-GAN}
+}
+```
