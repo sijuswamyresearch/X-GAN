@@ -1,7 +1,7 @@
 # Model parameters
 img_size: 256
 batch_size: 16
-epochs: 150
+epochs: 100
 peak_photons: 1000
 
 # Data parameters
