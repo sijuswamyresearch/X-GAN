@@ -5,9 +5,8 @@
 This repository contains the complete code, results and models from the X-GAN project. This project is done by Mr. Siju K. S, Research Scholar, Amrita School of Artificial Intelligence and is supervised by [Dr. Vipin Venugopal](https://sites.google.com/view/vipin-venugopal?pli=1) , Assistant Professor (Sel.Gr), Amrita School of Artificial Intelligence, Amrita Vishwa Vidyapeetham, Coimbatore.
 
 
-## Project Documentation
+## X-GAN Project Documentation
 
-# Medical Image Denoising Using X-GAN
 
 ## Project Overview
 
@@ -18,7 +17,7 @@ This project implements a **Generative Adversarial Network (GAN)** for medical i
 - Custom loss functions combining **adversarial loss**, **reconstruction loss**, and **gradient penalty**.
 
 The project is designed to handle realistic noise models in medical imaging datasets and provides tools for evaluation metrics such as **PSNR**, **SSIM**, and **Edge RMSE**.
-
+A detaild discussion of the novelty of this work with proper justifications is available at (Novelty)[].
 ---
 
 ## Installation Instructions
