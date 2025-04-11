@@ -1,5 +1,3 @@
-# X-GAN
-
 ![X-GAN](X-GAN-title.png)
 ## The Project repository for X-GAN
 
