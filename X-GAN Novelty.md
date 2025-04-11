@@ -10,7 +10,8 @@ The system implements a Generative Adversarial Network (GAN) with:
 - Edge attention mechanisms to preserve critical anatomical structures  
 - Custom loss functions combining pixel, structural, and edge information
 
-**Justification:**  
+>**Justification:**
+
 Medical images require precise preservation of edges and textures for accurate diagnosis. The hybrid architecture combines the strengths of GANs for realistic image generation with explicit edge preservation techniques.
 
 ---
@@ -30,7 +31,8 @@ def normalize_medical_images(images):
 ```
 **Purpose:** Normalizes medical images while handling outliers.
 
-**Justification:**
+>**Justification:**
+
 - Uses percentile clipping (0.1-99.9%) to exclude extreme values common in medical scans  
 - Prevents contrast stretching from being affected by artifacts or noise  
 - Maintains relative intensity relationships crucial for medical interpretation  
@@ -46,7 +48,8 @@ def add_xray_noise(images, peak):
 ```
 **Purpose:** Simulates realistic X-ray quantum noise.
 
-**Justification:**
+>**Justification:**
+
 - Models the Poisson noise process inherent in X-ray imaging  
 - Parameter `peak` controls noise level (higher = less noise)  
 - Maintains physical accuracy of the noise model for realistic training  
@@ -59,7 +62,8 @@ def add_xray_noise(images, peak):
 - Automatic resizing and grayscale conversion  
 - Robust error handling for corrupt files  
 
-**Justification:**
+>**Justification:**
+
 - Medical datasets often contain mixed formats and corrupt files  
 - Standardizes input size while preserving aspect ratio  
 - Logs detailed loading statistics for quality control  
@@ -77,7 +81,8 @@ class SobelEdgeLayer(layers.Layer):
 ```
 **Purpose:** Computes edge magnitude maps using Sobel operators.
 
-**Justification:**
+>**Justification:**
+
 - Provides differentiable edge detection for loss calculations  
 - Preserves edge orientation information  
 - More efficient than separate horizontal/vertical convolutions  
@@ -100,7 +105,8 @@ class EdgeAttention(layers.Layer):
 ```
 **Purpose:** Applies attention to edge regions during processing.
 
-**Justification:**
+>**Justification:**
+
 - Dynamically emphasizes edge features during denoising  
 - Learned attention adapts to different edge types (soft/hard)  
 - Helps preserve diagnostically critical boundaries  
@@ -125,7 +131,8 @@ class SpectralNormalization(tf.keras.layers.Wrapper):
 ```
 **Purpose:** Stabilizes GAN training via weight normalization.
 
-**Justification:**
+>**Justification:**
+
 - Enforces Lipschitz constraint on discriminator  
 - Prevents mode collapse common in GANs  
 - More stable than gradient penalty alone  
@@ -147,7 +154,8 @@ def compute_loss(real, generated, real_edges, gen_edges):
 - Edge Loss: Explicitly maintains edge structures  
 - SSIM: Preserves perceptual image quality  
 
-**Justification:**
+>**Justification:**
+
 - Hybrid loss addresses multiple medical imaging needs  
 - Edge loss weight (5.0) emphasizes structure preservation  
 - SSIM improves perceptual quality over MSE alone  
@@ -170,7 +178,8 @@ def calculate_epi(original, denoised):
 ```
 **Purpose:** Quantifies edge preservation quality.
 
-**Justification:**
+>**Justification:**
+
 - More clinically relevant than pixel-wise metrics  
 - Measures both edge strength and position accuracy  
 - Windowed approach handles local variations  
@@ -184,7 +193,8 @@ def calculate_epi(original, denoised):
 - Edge RMSE - Edge preservation  
 - EPI - Clinical edge quality  
 
-**Justification:**
+>**Justification:**
+
 - Comprehensive evaluation from pixels to clinical relevance  
 - Provides both quantitative metrics and visual results  
 - Standardized reporting enables comparison  
@@ -199,7 +209,8 @@ def calculate_epi(original, denoised):
 - Separate optimizers for generator/discriminator  
 - Gradient clipping prevents explosions  
 
-**Justification:**
+>**Justification:**
+
 - WGAN-GP provides more stable training than standard GAN  
 - Allows different learning rates for G/D  
 - Careful gradient management for medical applications  
@@ -213,8 +224,9 @@ def calculate_epi(original, denoised):
 - Aggregated metrics  
 - Final model on full data  
 
-**Justification:**
-- Robust performance estimation  
+>**Justification:**
+
+- Robust performance estimation (damands journals)  
 - Avoids overfitting to single split  
 - Final model utilizes all available data  
 
