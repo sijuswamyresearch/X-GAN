@@ -17,7 +17,7 @@ This project implements a **Generative Adversarial Network (GAN)** for medical i
 - Custom loss functions combining **adversarial loss**, **reconstruction loss**, and **gradient penalty**.
 
 The project is designed to handle realistic noise models in medical imaging datasets and provides tools for evaluation metrics such as **PSNR**, **SSIM**, and **Edge RMSE**.
-A detaild discussion of the novelty of this work with proper justifications is available at (Novelty)[https://github.com/sijuswamyresearch/X-GAN/blob/main/X-GAN%20Novelty.md].
+A detaild discussion of the novelty of this work with proper justifications is available at [Novelty](https://github.com/sijuswamyresearch/X-GAN/blob/main/X-GAN%20Novelty.md).
 ---
 
 ## Installation Instructions
