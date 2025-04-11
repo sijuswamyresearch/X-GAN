@@ -1,5 +1,5 @@
 # X-GAN with Edge Preservation 
->**A Brief discussion of Novelty of the work and its medical adaptability**
+>**A Brief discussion on the novelty of the work and its medical adaptability**
 
 ## 1. Core Architecture Overview
 
