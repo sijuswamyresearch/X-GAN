@@ -18,7 +18,7 @@ from collections import defaultdict
 # --- Constants and Configurations ---
 IMG_SIZE = 256
 BATCH_SIZE = 16
-EPOCHS = 150
+EPOCHS = 100
 PEAK_PHOTONS = 1000
 TEST_SIZE = 0.1
 VAL_SIZE = 0.1
