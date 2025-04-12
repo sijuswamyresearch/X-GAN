@@ -12,7 +12,7 @@ val_size: 0.1
 # Training parameters
 g_lr: 5e-6
 d_lr: 2e-6
-beta_1: 0.5
+beta_1: 0.9
 lambda_gp: 10.0
 edge_weight: 5.0
 
