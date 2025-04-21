@@ -72,9 +72,9 @@ medical_image_denoising/
 
 ## Dataset link
 
-1. **Train and Test dataset:**  <https://doi.org.10.17632/9xkhgts2s6.1> 
+1. **Train and Test dataset:**  <https://doi.org/10.17632/9xkhgts2s6.1> 
 2. **Generalization study:** `Stanford CheXpert dataset` <https://doi.org/10.71718/y7pj-4v93>
-3. **Generalization study:** `BSD dataset` <https://github.com/ranran-n/dataset->
+3. **Generalization study:** `BSD400 dataset` <https://github.com/ranran-n/dataset->
 
 >Last accessed on April 15, 2025.
 
